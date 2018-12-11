@@ -53,7 +53,6 @@ public class Cashier {
 
     public void setPassword(String password) {
         this.password = password;
-        
     }
     
     public String getDetails(){
