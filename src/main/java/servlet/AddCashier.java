@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Mihai
  */
-public class Test extends HttpServlet {
+public class AddCashier extends HttpServlet {
 
     @Inject
     CashierBean cashierBean = new CashierBean();
@@ -39,10 +39,10 @@ public class Test extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Test</title>");            
+            out.println("<title>Servlet AddCashier</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Test at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AddCashier at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,10 +60,8 @@ public class Test extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("title", "Test page");
-        request.setAttribute("stuff", "This is just a page to test the servlet");
-        request.getRequestDispatcher("test.jsp").forward(request, response);
-        processRequest(request, response);
+        request.getRequestDispatcher("addCashier.jsp").forward(request, response);
+        //processRequest(request, response);
     }
 
     /**
@@ -77,7 +75,15 @@ public class Test extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        
+        cashierBean.createCashier(firstName, lastName, email, password);
+        
+        response.sendRedirect(request.getContextPath() + "/Test");
     }
 
     /**

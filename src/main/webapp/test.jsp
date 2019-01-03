@@ -15,5 +15,7 @@
         <h1>${title}</h1>
         <p>${stuff}</p>
         <a href="index.jsp">Go back</a>
+        <a href="AddCashier">Add a cashier</a>
+        
     </body>
 </html>
