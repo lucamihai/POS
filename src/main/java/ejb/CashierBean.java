@@ -70,5 +70,11 @@ public class CashierBean {
         cashier.setPassword(password);
         
         entityManager.persist(cashier);
+        
+    }
+     public void login(String name, String password){
+      
+        
+   
     }
 }
