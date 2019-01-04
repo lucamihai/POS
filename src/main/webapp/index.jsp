@@ -8,5 +8,7 @@
         <a href="Test">Test servlet</a>
         <br>
         <a href="AddProduct">Add a product</a>
+        <br>
+        <a href="AddStock">Add a stock</a>
     </body>
 </html>
