@@ -62,13 +62,19 @@ public class CashierBean {
     
     public void createCashier(String firstName, String lastName, String email, String password){
         LOG.info("Create cashier");
+
+        try{
+            Cashier cashier = new Cashier();
+            cashier.setFirstname(firstName);
+            cashier.setLastname(lastName);
+            cashier.setEmail(email);
+            cashier.setPassword(password);
+            
+            entityManager.persist(cashier);
+        }
+        catch(Exception ex){
+            
+        }
         
-        Cashier cashier = new Cashier();
-        cashier.setFirstname(firstName);
-        cashier.setLastname(lastName);
-        cashier.setEmail(email);
-        cashier.setPassword(password);
-        
-        entityManager.persist(cashier);
     }
 }

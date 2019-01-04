@@ -6,6 +6,7 @@
 package entity;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,7 +28,10 @@ public class Cashier implements Serializable {
     
     String firstname;
     String lastname;
+    
+    @Column(unique=true)
     String email;
+    
     String password;
 
     public String getFirstname() {

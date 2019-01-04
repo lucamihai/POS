@@ -81,7 +81,13 @@ public class AddCashier extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         
-        cashierBean.createCashier(firstName, lastName, email, password);
+        try{
+            cashierBean.createCashier(firstName, lastName, email, password);
+        }
+        catch(Exception ex){
+            request.setAttribute("error", "The email is already used");
+            request.getRequestDispatcher("addCashier.jsp").forward(request, response);
+        }
         
         response.sendRedirect(request.getContextPath() + "/Test");
     }
