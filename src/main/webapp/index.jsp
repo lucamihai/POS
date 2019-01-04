@@ -6,5 +6,7 @@
     </head>
     <body>
         <a href="Test">Test servlet</a>
+        <br>
+        <a href="AddProduct">Add a product</a>
     </body>
 </html>
