@@ -140,7 +140,11 @@
             
             <input type="submit" value="Register">
         </form>
+            
+        <a href="Test">Go back</a>
     </body>
+    
+    
     
     
 </html>
