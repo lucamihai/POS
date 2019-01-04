@@ -17,6 +17,8 @@
         <a href="index.jsp">Go back</a>
         <br>
         <a href="AddCashier">Register a cashier</a>
+        <br>
+        <a href="POS">POS Prototype</a>
         
     </body>
 </html>
