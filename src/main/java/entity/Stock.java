@@ -10,12 +10,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
  * @author BAJENARUPAVEL-ALEXAN
  */
 @Entity
+@Getter
+@Setter
 public class Stock implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -24,30 +28,6 @@ public class Stock implements Serializable {
     private Long id;
     Integer idProduct;
     Integer amount;
-
-    public Integer getIdProduct() {
-        return idProduct;
-    }
-
-    public void setIdProduct(Integer idProduct) {
-        this.idProduct = idProduct;
-    }
-
-    public Integer getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Integer amount) {
-        this.amount = amount;
-    }
-    
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     @Override
     public int hashCode() {
