@@ -27,7 +27,7 @@ public class POS extends HttpServlet {
 
     @Inject
     ProductBean productBean;
-    List<Integer> ceva = new ArrayList<Integer>();
+    List<ProductDetails> products = new ArrayList<ProductDetails>();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -67,6 +67,7 @@ public class POS extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        products.clear();
         request.getRequestDispatcher("pos.jsp").forward(request, response);
         processRequest(request, response);
     }
@@ -91,14 +92,12 @@ public class POS extends HttpServlet {
             ProductDetails product = productBean.getProductsByBarcode(barcode);
             
             if (product != null){
-                request.setAttribute("productName", product.getName());
+                //request.setAttribute("productName", product.getName());
+                products.add(product);
             }
-            
-            request.setAttribute("altceva", barcode);
+
         }
-        
-        ceva.add(1);
-        request.setAttribute("ceva", ceva);
+        request.setAttribute("products", products);
         request.getRequestDispatcher("pos.jsp").forward(request, response);
         processRequest(request, response);
     }
