@@ -83,7 +83,7 @@
             </table>
             
             <form method="post" action="POS" id="formRemoveProduct">
-                <input type="hidden" name="indexProduct" id="productIndex">
+                <input type="hidden" name="productIndex" id="productIndex">
                 <input type="hidden" name="action" value="removeProductFromShoppingCart">
             </form>
         </div>
@@ -209,7 +209,6 @@
             function SetIndexForProductToRemove(index){
                 var inputIndexProduct = document.getElementById("productIndex");
                 inputIndexProduct.value = index;
-                alert(inputIndexProduct.value);
             }
         </script>
     </body>
