@@ -5,10 +5,13 @@
  */
 package servlet;
 
+import common.ProductDetails;
+import ejb.ProductBean;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,6 +25,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "POS", urlPatterns = {"/POS"})
 public class POS extends HttpServlet {
 
+    @Inject
+    ProductBean productBean;
     List<Integer> ceva = new ArrayList<Integer>();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -81,6 +86,14 @@ public class POS extends HttpServlet {
         
         if (action.equals("enter")){
             String barcode = request.getParameter("barcode");
+            
+            
+            ProductDetails product = productBean.getProductsByBarcode(barcode);
+            
+            if (product != null){
+                request.setAttribute("productName", product.getName());
+            }
+            
             request.setAttribute("altceva", barcode);
         }
         

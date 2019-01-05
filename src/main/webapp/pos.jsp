@@ -102,6 +102,7 @@
         </form> 
         <ul>
             ${altceva}
+            ${productName}
             <c:forEach var="numar" items="${ceva}" varStatus="status">
                 <li>${numar}</li>
             </c:forEach>

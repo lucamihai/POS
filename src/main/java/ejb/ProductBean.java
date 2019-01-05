@@ -29,13 +29,35 @@ public class ProductBean {
     @PersistenceContext
     EntityManager entityManager;
     
-    public List<ProductDetails> getAllCashiers(){
+    public List<ProductDetails> getAllProducts(){
         LOG.info("Get all products");
         
         try{
+            
             Query query = entityManager.createQuery("SELECT p FROM Product p");
             List<Product> products = (List<Product>)query.getResultList();
             return copyProductsToDetails(products);
+        }
+        
+        catch(Exception e){
+            throw new EJBException(e);
+        }
+    }
+    
+    public ProductDetails getProductsByBarcode(String barcode){
+        LOG.info("Get products by barcode " + barcode);
+        
+        try{
+            
+            Query query = entityManager.createQuery("SELECT p FROM Product p WHERE p.barcode = :barcode");
+            query.setParameter("barcode", barcode);
+            List<Product> products = (List<Product>)query.getResultList();
+            
+            if (products.isEmpty()){
+                return null;
+            }
+            
+            return (copyProductsToDetails(products)).get(0);
         }
         
         catch(Exception e){
