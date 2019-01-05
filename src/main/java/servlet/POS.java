@@ -7,6 +7,8 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "POS", urlPatterns = {"/POS"})
 public class POS extends HttpServlet {
 
+    List<Integer> ceva = new ArrayList<Integer>();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -58,6 +61,7 @@ public class POS extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         request.getRequestDispatcher("pos.jsp").forward(request, response);
         processRequest(request, response);
     }
@@ -73,6 +77,16 @@ public class POS extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String action = request.getParameter("action");
+        
+        if (action.equals("enter")){
+            String barcode = request.getParameter("barcode");
+            request.setAttribute("altceva", barcode);
+        }
+        
+        ceva.add(1);
+        request.setAttribute("ceva", ceva);
+        request.getRequestDispatcher("pos.jsp").forward(request, response);
         processRequest(request, response);
     }
 

@@ -31,6 +31,7 @@
                 font-size: 125%;
             }
         </style>
+        <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     </head>
     <body>
         <table>
@@ -78,7 +79,12 @@
                     <button onclick="ButtonPress(this);" value="3">3</button>
                 </td>
                 <td colspan=2>
-                    <button onclick="ButtonPress(this);" value="enter">Enter</button>
+                    <form method="post" action="POS">
+                        <input onclick="SetBarcode();" type="submit" value="Enter">
+                        <input id="action" name="action" type="hidden" value="enter">
+                        <input id="barcode" name="barcode" type="hidden">
+                    </form>
+                    
                 </td>
             </tr>
             <tr>
@@ -90,6 +96,17 @@
                 </td>
             </tr>
         </table>
+        <h2>Lista</h2>
+        <form method="post" action="POS">
+            <input type="submit">
+        </form> 
+        <ul>
+            ${altceva}
+            <c:forEach var="numar" items="${ceva}" varStatus="status">
+                <li>${numar}</li>
+            </c:forEach>
+        </ul>
+        
         <script>
             function ButtonPress(buton){
                 var display = document.getElementById("display");
@@ -132,8 +149,12 @@
                 }
 
                 display.innerHTML += valoareButonApasat;
-
-
+            }
+            
+            function SetBarcode(){
+                var display = document.getElementById("display");
+                var inputBarcode = document.getElementById("barcode");
+                inputBarcode.value = display.innerHTML;
             }
         </script>
     </body>
