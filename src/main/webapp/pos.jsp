@@ -124,8 +124,10 @@
                         <button onclick="ButtonPress(this);" value="3">3</button>
                     </td>
                     <td colspan=2>
-                        <form method="post" action="POS">
-                            <input onclick="SetBarcode();" type="submit" value="Enter">
+                        <form id="formBarcode" method="post" action="POS">
+                            <button onclick="SetBarcode();" form="formBarcode">
+                                Enter
+                            </button>
                             <input id="action" name="action" type="hidden" value="enter">
                             <input id="barcode" name="barcode" type="hidden">
                         </form>
