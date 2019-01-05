@@ -83,24 +83,30 @@ public class POS extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         String action = request.getParameter("action");
         
         if (action.equals("enter")){
             String barcode = request.getParameter("barcode");
-            
-            
+
             ProductDetails product = productBean.getProductsByBarcode(barcode);
             
             if (product != null){
-                //request.setAttribute("productName", product.getName());
                 products.add(product);
             }
             
             if (product == null){
                 request.setAttribute("errorMessage", "Product with barcode " + barcode + " doesn't exist");
             }
-
         }
+        
+        if (action.equals("removeProductFromShoppingCart")){
+            String stringProductIndex = request.getParameter("productIndex");
+            int productIndex = Integer.parseInt(stringProductIndex);
+            
+            products.remove(productIndex);
+        }
+        
         request.setAttribute("products", products);
         request.getRequestDispatcher("pos.jsp").forward(request, response);
         processRequest(request, response);
