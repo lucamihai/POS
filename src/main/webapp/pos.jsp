@@ -12,6 +12,10 @@
         <title>POS</title>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
         <style>
+            *{
+                background-color: rgb(0, 0, 0);
+                color: rgb(65, 120, 175);
+            }
             #left{
                 width: 25%;
                 float: left;
@@ -28,7 +32,7 @@
                 font-size: 200%;
             }
             button {
-                background-color: #bbb;
+                background-color: darkgray;
                 display: block;
                 margin: 10px 0;
                 padding: 10px;
@@ -43,6 +47,13 @@
             #display{
                 text-align: right;
                 font-size: 125%;
+            }
+            
+            .errorMessage{
+                color: red;
+            }
+            table, tr, td{
+                border: 1px solid lightgray;
             }
         </style>
         <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -67,6 +78,7 @@
         </div>
         <div id="right">
             <h2>Product barcode</h2>
+            <div class="errorMessage">${errorMessage}</div>
             <table id="input">
                 <tr>
                     <td colspan=5 id="display">0</td>

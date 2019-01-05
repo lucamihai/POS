@@ -95,6 +95,10 @@ public class POS extends HttpServlet {
                 //request.setAttribute("productName", product.getName());
                 products.add(product);
             }
+            
+            if (product == null){
+                request.setAttribute("errorMessage", "Product with barcode " + barcode + " doesn't exist");
+            }
 
         }
         request.setAttribute("products", products);
