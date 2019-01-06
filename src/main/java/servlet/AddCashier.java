@@ -80,8 +80,10 @@ public class AddCashier extends HttpServlet {
         String lastName = request.getParameter("lastName");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String admin = request.getParameter("admin");
+        Boolean isAdmin = (admin != null);
+        cashierBean.createCashier(firstName, lastName, email, password, isAdmin);
         
-        cashierBean.createCashier(firstName, lastName, email, password);
         
         response.sendRedirect(request.getContextPath() + "/Test");
     }

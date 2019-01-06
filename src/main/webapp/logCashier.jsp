@@ -36,7 +36,7 @@ return false;
 <table align="center">
 <tr>
 <td>Username</td>
-<td><input type="text" name="username" /></td>
+<td><input type="text" name="email" /></td>
 </tr>
 <tr>
 <td>Password</td>
@@ -45,6 +45,7 @@ return false;
 <tr>
 <td></td>
 <td><input type="submit" value="Login"></input></td>
+<div>${errorMessage}</div>
 </tr>
 </table>
 </form>

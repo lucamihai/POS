@@ -29,6 +29,17 @@ public class Cashier implements Serializable {
     String lastname;
     String email;
     String password;
+     Boolean admin;
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
+    }
+
+    
 
     public String getFirstname() {
         return firstname;
