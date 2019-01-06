@@ -28,7 +28,6 @@ public class POS extends HttpServlet {
 
     @Inject
     ProductBean productBean;
-    List<ProductDetails> products = new ArrayList<ProductDetails>();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -68,7 +67,27 @@ public class POS extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        products.clear();
+        
+        List<ProductDetails> sessionShoppingCart;
+        
+        HttpSession session = request.getSession(false);
+        if (session == null){
+            request.setAttribute("email", "-");
+            return;
+        }
+        
+        
+        request.setAttribute("email", session.getAttribute("email"));
+        sessionShoppingCart = (ArrayList<ProductDetails>)session.getAttribute("shoppingCart");
+
+        if (sessionShoppingCart != null){
+            request.setAttribute("email", sessionShoppingCart.size());
+        }
+        else{
+            sessionShoppingCart = new ArrayList<ProductDetails>();
+        }
+        
+        request.setAttribute("products", sessionShoppingCart);
         request.getRequestDispatcher("pos.jsp").forward(request, response);
         processRequest(request, response);
     }
@@ -89,12 +108,12 @@ public class POS extends HttpServlet {
         
         HttpSession session = request.getSession(false);
         if (session == null){
-            request.setAttribute("email", "Session doesn't exist");
+            request.setAttribute("email", "-");
             return;
         }
         
         
-        //request.setAttribute("email", session.getAttribute("email"));
+        request.setAttribute("email", session.getAttribute("email"));
         sessionShoppingCart = (ArrayList<ProductDetails>)session.getAttribute("shoppingCart");
 
         if (sessionShoppingCart != null){
@@ -102,7 +121,6 @@ public class POS extends HttpServlet {
         }
         else{
             sessionShoppingCart = new ArrayList<ProductDetails>();
-            request.setAttribute("email", "Cart is empty");
         }
         
         
