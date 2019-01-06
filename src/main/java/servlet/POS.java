@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -84,6 +85,27 @@ public class POS extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        List<ProductDetails> sessionShoppingCart;
+        
+        HttpSession session = request.getSession(false);
+        if (session == null){
+            request.setAttribute("email", "Session doesn't exist");
+            return;
+        }
+        
+        
+        //request.setAttribute("email", session.getAttribute("email"));
+        sessionShoppingCart = (ArrayList<ProductDetails>)session.getAttribute("shoppingCart");
+
+        if (sessionShoppingCart != null){
+            request.setAttribute("email", sessionShoppingCart.size());
+        }
+        else{
+            sessionShoppingCart = new ArrayList<ProductDetails>();
+            request.setAttribute("email", "Cart is empty");
+        }
+        
+        
         String action = request.getParameter("action");
         
         if (action.equals("enter")){
@@ -92,7 +114,7 @@ public class POS extends HttpServlet {
             ProductDetails product = productBean.getProductsByBarcode(barcode);
             
             if (product != null){
-                products.add(product);
+                sessionShoppingCart.add(product);
             }
             
             if (product == null){
@@ -104,10 +126,12 @@ public class POS extends HttpServlet {
             String stringProductIndex = request.getParameter("productIndex");
             int productIndex = Integer.parseInt(stringProductIndex);
             
-            products.remove(productIndex);
+            sessionShoppingCart.remove(productIndex);
         }
         
-        request.setAttribute("products", products);
+        
+        session.setAttribute("shoppingCart", sessionShoppingCart);
+        request.setAttribute("products", sessionShoppingCart);
         request.getRequestDispatcher("pos.jsp").forward(request, response);
         processRequest(request, response);
     }

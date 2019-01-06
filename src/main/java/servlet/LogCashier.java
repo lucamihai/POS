@@ -14,7 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import jdk.nashorn.internal.ir.Statement;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -79,8 +79,18 @@ public class LogCashier extends HttpServlet {
          
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        
         Boolean cashierExists = cashierBean.VerifyCashier(email, password);
         if (cashierExists){
+            HttpSession oldSession = request.getSession(false);
+            if (oldSession != null) {
+                oldSession.invalidate();
+            }
+
+            HttpSession newSession = request.getSession(true);
+            newSession.setAttribute("email", email);
+            newSession.setMaxInactiveInterval(15*60);
+
             request.getRequestDispatcher("test.jsp").forward(request, response);
         }
         else {
