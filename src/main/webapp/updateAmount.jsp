@@ -12,10 +12,13 @@
         <title>JSP Page</title>
     </head>
    <body>
-<div style="text-align:center"><h1>Updadte Amount </h1> </div>
+<div style="text-align:center"><h1>Updadte Amount </h1>
+   ${errorMessage}</div>
 <br>
-<form name="form" action="UpdadteAmount" method="post">
+<form name="form" action="UpdateAmount" method="post">
+   
 <table align="center">
+  
 <tr>
 <td>ID Product</td>
 <td><input type="text" name="idProduct" /></td>
@@ -27,7 +30,7 @@
 <tr>
 <td></td>
 <td><input type="submit" value="Refill"></input></td>
-<div>${errorMessage}</div>
+
 </tr>
 </table>
 </form>

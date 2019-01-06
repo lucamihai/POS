@@ -5,8 +5,10 @@
  */
 package servlet;
 
+import ejb.UpdateBean;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +21,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "UpdateAmount", urlPatterns = {"/UpdateAmount"})
 public class UpdateAmount extends HttpServlet {
-
+    
+    @Inject
+          UpdateBean updateBean;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -73,7 +77,18 @@ public class UpdateAmount extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        Integer idProduct = Integer.parseInt(request.getParameter("idProduct"));
+        Integer amount = Integer.parseInt(request.getParameter("amount"));
+        Boolean result=updateBean.UpdateAmount(idProduct, amount);
+        if (result){
+            request.setAttribute("errorMessage", "Cantitaea a fost modificata");
+            request.getRequestDispatcher("updateAmount.jsp").forward(request, response);}
+        
+        else{
+             request.setAttribute("errorMessage", "Nu ai introdus corect idProduct!");
+        request.getRequestDispatcher("updateAmount.jsp").forward(request, response);
+       }
     }
 
     /**
