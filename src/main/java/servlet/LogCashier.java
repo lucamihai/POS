@@ -79,10 +79,6 @@ public class LogCashier extends HttpServlet {
          
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        Boolean result=cashierBean.VerifyCashier(email, password);
-        if (result)
-            request.getRequestDispatcher("test.jsp").forward(request, response);
-        else request.getRequestDispatcher("logCashier.jsp").forward(request, response);
         
         Boolean cashierExists = cashierBean.VerifyCashier(email, password);
         if (cashierExists){
@@ -100,7 +96,7 @@ public class LogCashier extends HttpServlet {
         else {
             request.getRequestDispatcher("logCashier.jsp").forward(request, response);
         }
-
+        
     }
 
     /**

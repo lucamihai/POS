@@ -5,10 +5,8 @@
  */
 package servlet;
 
-import ejb.CashierBean;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,8 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "LogAdministrator", urlPatterns = {"/LogAdministrator"})
 public class LogAdministrator extends HttpServlet {
-    @Inject
- CashierBean cashierBean;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -75,13 +72,7 @@ public class LogAdministrator extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-          String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        Boolean result=cashierBean.VerifyAdmin(email, password);
-        if (result)
-            request.getRequestDispatcher("test.jsp").forward(request, response);
-        else request.getRequestDispatcher("logAdministrator.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
