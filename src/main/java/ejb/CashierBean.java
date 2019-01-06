@@ -76,5 +76,16 @@ public class CashierBean {
             
         }
         
+        Cashier cashier = new Cashier();
+        cashier.setFirstname(firstName);
+        cashier.setLastname(lastName);
+        cashier.setEmail(email);
+        cashier.setPassword(password);
+        
+        entityManager.persist(cashier);
+        
+    }
+     public void login(String name, String password){
+         
     }
 }

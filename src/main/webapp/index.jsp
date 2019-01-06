@@ -10,5 +10,7 @@
         <a href="AddProduct">Add a product</a>
         <br>
         <a href="AddStock">Add a stock</a>
+        <br>
+        <a href="Login">Login</a>
     </body>
 </html>

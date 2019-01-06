@@ -86,6 +86,8 @@
                 <input type="hidden" name="productIndex" id="productIndex">
                 <input type="hidden" name="action" value="removeProductFromShoppingCart">
             </form>
+            
+            <a href="Test">Go back</a>
         </div>
         <div id="right">
             <h2>Product barcode</h2>
