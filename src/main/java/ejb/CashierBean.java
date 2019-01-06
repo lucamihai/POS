@@ -7,6 +7,8 @@ package ejb;
 
 import common.CashierDetails;
 import entity.Cashier;
+import entity.Product;
+import static entity.Product_.barcode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -41,6 +43,49 @@ public class CashierBean {
             throw new EJBException(e);
         }
     }
+    public Boolean VerifyCashier(String email, String password){
+        LOG.info("Verify if the cashier exist.");
+       
+        try{
+            
+            Query query = entityManager.createQuery("SELECT c FROM Cashier c WHERE c.email = :email and c.password = :password");
+            query.setParameter("email", email);
+            query.setParameter("password", password);
+            List<Cashier> cashiers = (List<Cashier>)query.getResultList();
+     
+            if (cashiers.isEmpty()){
+                return false;
+            }
+            else
+                return true;
+        }
+        
+        catch(Exception e){
+            return true;
+        }
+    }
+    
+    public Boolean VerifyAdmin(String email,String password){
+        LOG.info("Verify if the admin exist.");
+       
+        try{
+            
+            Query query = entityManager.createQuery("SELECT c FROM Cashier c WHERE c.email = :email and c.password=:password");
+            query.setParameter("email", email);
+            query.setParameter("password", password);
+            List<Cashier> cashiers = (List<Cashier>)query.getResultList();
+         
+            if (cashiers.isEmpty()){
+                return false;
+            }
+            else return true;
+        }
+        
+        catch(Exception e){
+            return false;
+        }
+    }
+    
     
     List<CashierDetails> copyCashiersToDetails(List<Cashier> cashiers){
         List<CashierDetails> allCashierDetails = new ArrayList<CashierDetails>();
@@ -60,32 +105,19 @@ public class CashierBean {
         return allCashierDetails;
     }
     
-    public void createCashier(String firstName, String lastName, String email, String password){
+    public void createCashier(String firstName, String lastName, String email, String password, Boolean admin){
         LOG.info("Create cashier");
-
-        try{
-            Cashier cashier = new Cashier();
-            cashier.setFirstname(firstName);
-            cashier.setLastname(lastName);
-            cashier.setEmail(email);
-            cashier.setPassword(password);
-            
-            entityManager.persist(cashier);
-        }
-        catch(Exception ex){
-            
-        }
         
         Cashier cashier = new Cashier();
         cashier.setFirstname(firstName);
         cashier.setLastname(lastName);
         cashier.setEmail(email);
         cashier.setPassword(password);
+        cashier.setAdmin(admin);
+        
         
         entityManager.persist(cashier);
         
     }
-     public void login(String name, String password){
-         
-    }
+  
 }

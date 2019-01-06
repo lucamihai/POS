@@ -23,7 +23,7 @@ import jdk.nashorn.internal.ir.Statement;
 @WebServlet(name = "LogCashier", urlPatterns = {"/LogCashier"})
 public class LogCashier extends HttpServlet {
  @Inject
-    CashierBean cashierBean = new CashierBean();
+    CashierBean cashierBean;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -76,11 +76,14 @@ public class LogCashier extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         String name = request.getParameter("name");
+         
+        String email = request.getParameter("email");
         String password = request.getParameter("password");
+        Boolean result = cashierBean.VerifyCashier(email, password);
+        if (result)
+            request.getRequestDispatcher("test.jsp").forward(request, response);
+        else request.getRequestDispatcher("logCashier.jsp").forward(request, response);
         
-       
-       
     }
 
     /**
