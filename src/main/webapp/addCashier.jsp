@@ -138,6 +138,10 @@
             <div id="errorPassword" class="errorMessage"></div>
             <br>
             
+            <label for="text">isAdmin?</label>
+            <input type="checkbox" name="admin" id="admin">
+            <br>
+            
             <input type="submit" value="Register">
         </form>
             
