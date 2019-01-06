@@ -26,8 +26,8 @@ public class Stock implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    Integer idProduct;
-    Integer amount;
+    String productBarcode;
+    Integer ammount;
 
     @Override
     public int hashCode() {

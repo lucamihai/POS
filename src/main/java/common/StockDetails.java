@@ -5,44 +5,24 @@
  */
 package common;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  *
  * @author BAJENARUPAVEL-ALEXAN
  */
+@Getter
+@Setter
 public class StockDetails {
     
     private Long id;
-    int idProduct;
-    int amount;
+    String productBarcode;
+    int ammount;
 
-    public StockDetails(Long id, int idProduct, int amount) {
+    public StockDetails(Long id, String productBarcode, int ammount) {
         this.id = id;
-        this.idProduct = idProduct;
-        this.amount = amount;
+        this.productBarcode = productBarcode;
+        this.ammount = ammount;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getIdProduct() {
-        return idProduct;
-    }
-
-    public void setIdProduct(int idProduct) {
-        this.idProduct = idProduct;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-    
 }

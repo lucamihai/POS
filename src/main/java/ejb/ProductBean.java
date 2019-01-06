@@ -5,10 +5,9 @@
  */
 package ejb;
 
-import common.CashierDetails;
 import common.ProductDetails;
-import entity.Cashier;
 import entity.Product;
+import entity.Stock;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -24,7 +23,7 @@ import javax.persistence.Query;
  */
 @Stateless
 public class ProductBean {
- private static final Logger LOG = Logger.getLogger(ProductBean.class.getName());
+    private static final Logger LOG = Logger.getLogger(ProductBean.class.getName());
 
     @PersistenceContext
     EntityManager entityManager;
@@ -48,7 +47,6 @@ public class ProductBean {
         LOG.info("Get products by barcode " + barcode);
         
         try{
-            
             Query query = entityManager.createQuery("SELECT p FROM Product p WHERE p.barcode = :barcode");
             query.setParameter("barcode", barcode);
             List<Product> products = (List<Product>)query.getResultList();
@@ -95,6 +93,11 @@ public class ProductBean {
             product.setImageName(imageName);
             product.setPrice(price);            
             entityManager.persist(product);
+            
+            Stock stock = new Stock();
+            stock.setProductBarcode(product.getBarcode());
+            stock.setAmmount(0);
+            entityManager.persist(stock);
         }
         catch(Exception ex){
             

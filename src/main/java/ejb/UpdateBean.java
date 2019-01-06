@@ -34,7 +34,7 @@ public class UpdateBean {
             Stock stock = getProductsByBarcode(idP);
             
             if (stock != null){
-                stock.setAmount(am);
+                stock.setAmmount(am);
                 entityManager.merge(stock);
                 return true;
             }

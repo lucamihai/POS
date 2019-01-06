@@ -51,8 +51,8 @@ public class StockBean {
         for (Stock stock : stocks){
             StockDetails stockDetails = new StockDetails(
                    stock.getId(),
-                   stock.getIdProduct(),
-                   stock.getAmount()
+                   stock.getProductBarcode(),
+                   stock.getAmmount()
             );
             
             allStockDetails.add(stockDetails);
@@ -61,13 +61,13 @@ public class StockBean {
         return allStockDetails;
     }
     
-    public void createStock(Integer idProduct, Integer amount){
+    public void createStock(String productBarcode, Integer amount){
         LOG.info("Create stock");
 
         try{
             Stock stock = new Stock();
-           stock.setIdProduct(idProduct);
-            stock.setAmount(amount);
+            stock.setProductBarcode(productBarcode);
+            stock.setAmmount(amount);
             entityManager.persist(stock);
         }
         catch(Exception ex){

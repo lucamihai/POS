@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import ejb.StockBean;
 import ejb.UpdateBean;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,7 +24,10 @@ import javax.servlet.http.HttpServletResponse;
 public class UpdateAmount extends HttpServlet {
     
     @Inject
-          UpdateBean updateBean;
+    UpdateBean updateBean;
+    
+    @Inject
+    StockBean stockBean;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -62,7 +66,8 @@ public class UpdateAmount extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      request.setAttribute("title", "Update Amount Product");
+        
+        request.setAttribute("title", "Update stick");
         request.getRequestDispatcher("updateAmount.jsp").forward(request, response);
     }
 
