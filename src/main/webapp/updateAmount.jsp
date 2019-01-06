@@ -62,17 +62,22 @@
                 if (ammount != null && ammount != ""){
                     
                     var isNumber = !isNaN(ammount);
-                    
-                    if (isNumber){
-                        inputProductBarcode.value = barcode;
-                        inputAmmount.value = ammount;
-                        
-                        var formUpdateStock = document.getElementById("formUpdateStock");
-                        formUpdateStock.submit();
-                    }
-                    else{
+                    if (!isNumber){
                         alert("Enter a valid number");
+                        return;
                     }
+                    
+                    var isAtLeastZero = (ammount >= 0);
+                    if (!isAtLeastZero){
+                        alert("Ammount must be at least 0");
+                        return;
+                    }
+                        
+                    inputProductBarcode.value = barcode;
+                    inputAmmount.value = ammount;
+
+                    var formUpdateStock = document.getElementById("formUpdateStock");
+                    formUpdateStock.submit();
                 }
             }
         </script>
