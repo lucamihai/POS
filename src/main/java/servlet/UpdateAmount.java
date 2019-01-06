@@ -5,10 +5,12 @@
  */
 package servlet;
 
+import common.StockDetails;
 import ejb.StockBean;
 import ejb.UpdateBean;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -67,7 +69,12 @@ public class UpdateAmount extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        request.setAttribute("title", "Update stick");
+        List<StockDetails> stocks = stockBean.getAllStocks();
+        
+        if (stocks != null && !stocks.isEmpty())
+            request.setAttribute("stocks", stocks);
+        
+        request.setAttribute("title", "Update stock");
         request.getRequestDispatcher("updateAmount.jsp").forward(request, response);
     }
 
@@ -83,17 +90,22 @@ public class UpdateAmount extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        Integer idProduct = Integer.parseInt(request.getParameter("idProduct"));
-        Integer amount = Integer.parseInt(request.getParameter("amount"));
-        Boolean result=updateBean.UpdateAmount(idProduct, amount);
-        if (result){
-            request.setAttribute("errorMessage", "Cantitaea a fost modificata");
-            request.getRequestDispatcher("updateAmount.jsp").forward(request, response);}
+        String productBarcode = request.getParameter("productBarcode");
+        Integer ammount = Integer.parseInt(request.getParameter("ammount"));
         
-        else{
-             request.setAttribute("errorMessage", "Nu ai introdus corect idProduct!");
+        Boolean updateIsSuccesful = updateBean.UpdateAmount(productBarcode, ammount);
+        if (updateIsSuccesful)
+            request.setAttribute("errorMessage", "Cantitaea a fost modificata");
+        else
+            request.setAttribute("errorMessage", "Nu ai introdus corect idProduct!");
+        
+        List<StockDetails> stocks = stockBean.getAllStocks();
+        
+        if (stocks != null && !stocks.isEmpty())
+            request.setAttribute("stocks", stocks);
+        
+        request.setAttribute("title", "Update stock");
         request.getRequestDispatcher("updateAmount.jsp").forward(request, response);
-       }
     }
 
     /**

@@ -27,14 +27,14 @@ public class UpdateBean {
     @PersistenceContext
     EntityManager entityManager;
     
-  public Boolean  UpdateAmount(Integer idP, Integer am ){
+  public Boolean  UpdateAmount(String productBarcode, Integer ammount){
         LOG.info("Get all stoks");
         
         try{
-            Stock stock = getProductsByBarcode(idP);
+            Stock stock = getStockByProductBarcode(productBarcode);
             
             if (stock != null){
-                stock.setAmmount(am);
+                stock.setAmmount(ammount);
                 entityManager.merge(stock);
                 return true;
             }
@@ -45,20 +45,19 @@ public class UpdateBean {
             return false;
         }
     }
-  public Stock getProductsByBarcode(Integer idProduct){
-        LOG.info("Get products by idProduct " + idProduct);
+  public Stock getStockByProductBarcode(String productBarcode){
+        LOG.info("Get stock by productBarcode " + productBarcode);
         
         try{
-            
-            Query query = entityManager.createQuery("SELECT s FROM Stock s WHERE s.idProduct = :idProduct");
-            query.setParameter("idProduct", idProduct);
+            Query query = entityManager.createQuery("SELECT s FROM Stock s WHERE s.productBarcode = :productBarcode");
+            query.setParameter("productBarcode", productBarcode);
             List<Stock> stocks = (List<Stock>)query.getResultList();
             
             if (stocks.isEmpty()){
                 return null;
             }
             
-            Stock stock=stocks.get(0);
+            Stock stock = stocks.get(0);
             
             return stock;
         }
