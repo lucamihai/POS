@@ -170,10 +170,15 @@ public class POS extends HttpServlet {
             String stringProductIndex = request.getParameter("productIndex");
             int productIndex = Integer.parseInt(stringProductIndex);
             
+            ShoppingCartItem shoppingCartItem = sessionShoppingCart.get(productIndex);
+            String productBarcode = shoppingCartItem.getProduct().getBarcode();
+            Stock productStock = stockUpdateBean.getStockByProductBarcode(productBarcode);
+            int productOldStock = productStock.getAmmount();
+            stockUpdateBean.UpdateAmount(productBarcode, productOldStock + shoppingCartItem.getQuantity());
+            
             sessionShoppingCart.remove(productIndex);
         }
-        
-        
+
         session.setAttribute("shoppingCart", sessionShoppingCart);
         request.setAttribute("products", sessionShoppingCart);
         request.getRequestDispatcher("pos.jsp").forward(request, response);
