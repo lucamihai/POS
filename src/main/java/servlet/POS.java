@@ -6,6 +6,7 @@
 package servlet;
 
 import common.ProductDetails;
+import common.ShoppingCartItem;
 import ejb.ProductBean;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -67,39 +68,36 @@ public class POS extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        List<ProductDetails> sessionShoppingCart;
+        List<ShoppingCartItem> sessionShoppingCart;
         
         HttpSession session = request.getSession(false);
         if (session == null){
+            
             request.setAttribute("errorMessage", "Session doesn't exist.");
-                request.getRequestDispatcher("errorPage.jsp").forward(request, response);
-                processRequest(request, response);
-                return;
+            request.getRequestDispatcher("errorPage.jsp").forward(request, response);
+            processRequest(request, response);
+            return;
         }
         else{
             
             if (session.getAttribute("email") == null){
+                
                 request.setAttribute("errorMessage", "Before accessing the POS, you must be logged in as a cashier.");
                 request.getRequestDispatcher("errorPage.jsp").forward(request, response);
                 processRequest(request, response);
                 return;
             }
             
-            sessionShoppingCart = (ArrayList<ProductDetails>)session.getAttribute("shoppingCart");
+            sessionShoppingCart = (ArrayList<ShoppingCartItem>)session.getAttribute("shoppingCart");
 
-            if (sessionShoppingCart != null){
-
-            }
-            else{
-                sessionShoppingCart = new ArrayList<ProductDetails>();
+            if (sessionShoppingCart == null){
+                sessionShoppingCart = new ArrayList<ShoppingCartItem>();
             }
 
             request.setAttribute("products", sessionShoppingCart);
             request.getRequestDispatcher("pos.jsp").forward(request, response);
             processRequest(request, response);
         }
-        
-        
     }
 
     /**
@@ -114,7 +112,7 @@ public class POS extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        List<ProductDetails> sessionShoppingCart;
+        List<ShoppingCartItem> sessionShoppingCart;
         
         HttpSession session = request.getSession(false);
         if (session == null){
@@ -122,27 +120,22 @@ public class POS extends HttpServlet {
             return;
         }
         
-        
-        request.setAttribute("email", session.getAttribute("email"));
-        sessionShoppingCart = (ArrayList<ProductDetails>)session.getAttribute("shoppingCart");
+        sessionShoppingCart = (ArrayList<ShoppingCartItem>)session.getAttribute("shoppingCart");
 
-        if (sessionShoppingCart != null){
-            
+        if (sessionShoppingCart == null){
+            sessionShoppingCart = new ArrayList<ShoppingCartItem>();
         }
-        else{
-            sessionShoppingCart = new ArrayList<ProductDetails>();
-        }
-        
         
         String action = request.getParameter("action");
         
         if (action.equals("enter")){
-            String barcode = request.getParameter("barcode");
-
-            ProductDetails product = productBean.getProductsByBarcode(barcode);
             
+            String barcode = request.getParameter("barcode");
+            ProductDetails product = productBean.getProductsByBarcode(barcode);
+
             if (product != null){
-                sessionShoppingCart.add(product);
+                ShoppingCartItem shoppingCartItem = new ShoppingCartItem(product, 1);
+                sessionShoppingCart.add(shoppingCartItem);
             }
             
             if (product == null){

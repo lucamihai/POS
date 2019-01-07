@@ -78,11 +78,11 @@ public class AddProduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-       String barcode = request.getParameter("barcode");
+        String barcode = request.getParameter("barcode");
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         String imageName = request.getParameter("imageName");
-        float price= Float.parseFloat(request.getParameter("price"));
+        float price = Float.parseFloat(request.getParameter("price"));
         
         try{
             productBean.createProduct(barcode, name, description, imageName, price);

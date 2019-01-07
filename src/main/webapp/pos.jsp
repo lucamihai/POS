@@ -69,14 +69,14 @@
                     <th>Product quantity</th>
                     <th></th>
                 </tr>
-                <c:forEach var="product" items="${products}" varStatus="status">
+                <c:forEach var="item" items="${products}" varStatus="status">
                     <tr>
-                        <td>${products.indexOf(product) + 1}</td>
-                        <td>${product.name}</td>
-                        <td>${product.price}</td>
-                        <td>1</td>
+                        <td>${products.indexOf(item) + 1}</td>
+                        <td>${item.product.name}</td>
+                        <td>${item.product.price}</td>
+                        <td>${item.quantity}</td>
                         <td>
-                            <button onclick="SetIndexForProductToRemove(${products.indexOf(product)})" form="formRemoveProduct">Remove</button>
+                            <button onclick="SetIndexForProductToRemove(${products.indexOf(item)})" form="formRemoveProduct">Remove</button>
                         </td>
                     </tr>
                 </c:forEach>
