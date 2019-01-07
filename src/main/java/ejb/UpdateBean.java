@@ -27,14 +27,14 @@ public class UpdateBean {
     @PersistenceContext
     EntityManager entityManager;
     
-  public Boolean  UpdateAmount(String productBarcode, Integer ammount){
-        LOG.info("Get all stoks");
+  public Boolean UpdateAmount(String productBarcode, Integer amount){
+        LOG.info("Update stock to " + amount + " for product with barcode " + productBarcode);
         
         try{
             Stock stock = getStockByProductBarcode(productBarcode);
             
             if (stock != null){
-                stock.setAmmount(ammount);
+                stock.setAmmount(amount);
                 entityManager.merge(stock);
                 return true;
             }

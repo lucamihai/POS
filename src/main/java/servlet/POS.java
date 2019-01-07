@@ -8,11 +8,15 @@ package servlet;
 import common.ProductDetails;
 import common.ShoppingCartItem;
 import ejb.ProductBean;
+import ejb.UpdateBean;
+import entity.Stock;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,6 +33,12 @@ public class POS extends HttpServlet {
 
     @Inject
     ProductBean productBean;
+    
+    @Inject
+    UpdateBean stockUpdateBean;
+    
+    @PersistenceContext
+    EntityManager entityManager;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -131,11 +141,24 @@ public class POS extends HttpServlet {
         if (action.equals("enter")){
             
             String barcode = request.getParameter("barcode");
+            int desiredQuantity = 1;    // TO-DO: will be read from an input from pos.jsp
+            
             ProductDetails product = productBean.getProductsByBarcode(barcode);
-
             if (product != null){
-                ShoppingCartItem shoppingCartItem = new ShoppingCartItem(product, 1);
-                sessionShoppingCart.add(shoppingCartItem);
+                
+                Stock productStock = stockUpdateBean.getStockByProductBarcode(barcode);
+                
+                if (productStock.getAmmount() < desiredQuantity){
+                    request.setAttribute("errorMessage", "The stock doesn't have enough products with barcode " + barcode);
+                }
+                else{
+                    int oldStockAmount = productStock.getAmmount();
+                    productStock.setAmmount(oldStockAmount - desiredQuantity);
+                    stockUpdateBean.UpdateAmount(barcode, oldStockAmount - desiredQuantity);
+                    
+                    ShoppingCartItem shoppingCartItem = new ShoppingCartItem(product, desiredQuantity);
+                    sessionShoppingCart.add(shoppingCartItem);
+                }
             }
             
             if (product == null){
