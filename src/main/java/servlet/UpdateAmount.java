@@ -95,9 +95,9 @@ public class UpdateAmount extends HttpServlet {
         
         Boolean updateIsSuccesful = updateBean.UpdateAmount(productBarcode, ammount);
         if (updateIsSuccesful)
-            request.setAttribute("errorMessage", "Cantitaea a fost modificata");
+            request.setAttribute("errorMessage", "Quantity succesfully modified");
         else
-            request.setAttribute("errorMessage", "Nu ai introdus corect idProduct!");
+            request.setAttribute("errorMessage", "Quantity couldn't be modified");
         
         List<StockDetails> stocks = stockBean.getAllStocks();
         

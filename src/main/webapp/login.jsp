@@ -9,13 +9,18 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Login</title>
     </head>
     <body>
-        <h1>${title}</h1>
-        <a href="LogAdministrator">Administrator</a>
-        <br>
-        <a href="LogCashier">Cashier</a>
+        <h1>User type</h1>
+        <ul>
+            <li>
+                <a href="LogCashier">Cashier</a>
+            </li>
+            <li>
+                <a href="LogAdministrator">Administrator (Work in progress)</a>
+            </li>
+        </ul>
     </body>
 </html>
 

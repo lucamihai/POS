@@ -18,7 +18,7 @@ pageEncoding="ISO-8859-1"%>
     <form action="LogCashier" method="post">
         <table align="center">
             <tr>
-            <td>Username</td>
+            <td>Email</td>
             <td><input type="text" name="email" /></td>
             </tr>
             <tr>

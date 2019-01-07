@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 public class Test extends HttpServlet {
 
     @Inject
-    CashierBean cashierBean = new CashierBean();
+    CashierBean cashierBean;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

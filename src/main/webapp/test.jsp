@@ -12,13 +12,26 @@
         <title>Test</title>
     </head>
     <body>
-        <h1>${title}</h1>
-        <p>${stuff}</p>
-        <a href="index.jsp">Go back</a>
-        <br>
-        <a href="AddCashier">Register a cashier</a>
-        <br>
-        <a href="POS">POS Prototype</a>
-        
+        <h1>Test servlet</h1>
+        <ul>
+            <li>
+                <a href="Login">Login</a>
+            </li>
+            <li>
+                <a href="AddCashier">Register a cashier</a>
+            </li>
+            <li>
+                <a href="AddProduct">Add a product</a>
+            </li>
+            <li>
+                <a href="UpdateAmount">Stock managing</a>
+            </li>
+            <li>
+                <a href="POS">POS Prototype</a>
+            </li>
+        </ul>
+        <h3>
+            <a href="index.jsp">Go back</a>
+        </h3>
     </body>
 </html>

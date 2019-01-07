@@ -67,29 +67,39 @@ public class POS extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        
         List<ProductDetails> sessionShoppingCart;
         
         HttpSession session = request.getSession(false);
         if (session == null){
-            request.setAttribute("email", "-");
-            return;
-        }
-        
-        
-        request.setAttribute("email", session.getAttribute("email"));
-        sessionShoppingCart = (ArrayList<ProductDetails>)session.getAttribute("shoppingCart");
-
-        if (sessionShoppingCart != null){
-            request.setAttribute("email", sessionShoppingCart.size());
+            request.setAttribute("errorMessage", "Session doesn't exist.");
+                request.getRequestDispatcher("errorPage.jsp").forward(request, response);
+                processRequest(request, response);
+                return;
         }
         else{
-            sessionShoppingCart = new ArrayList<ProductDetails>();
+            
+            if (session.getAttribute("email") == null){
+                request.setAttribute("errorMessage", "Before accessing the POS, you must be logged in as a cashier.");
+                request.getRequestDispatcher("errorPage.jsp").forward(request, response);
+                processRequest(request, response);
+                return;
+            }
+            
+            sessionShoppingCart = (ArrayList<ProductDetails>)session.getAttribute("shoppingCart");
+
+            if (sessionShoppingCart != null){
+
+            }
+            else{
+                sessionShoppingCart = new ArrayList<ProductDetails>();
+            }
+
+            request.setAttribute("products", sessionShoppingCart);
+            request.getRequestDispatcher("pos.jsp").forward(request, response);
+            processRequest(request, response);
         }
         
-        request.setAttribute("products", sessionShoppingCart);
-        request.getRequestDispatcher("pos.jsp").forward(request, response);
-        processRequest(request, response);
+        
     }
 
     /**
@@ -117,7 +127,7 @@ public class POS extends HttpServlet {
         sessionShoppingCart = (ArrayList<ProductDetails>)session.getAttribute("shoppingCart");
 
         if (sessionShoppingCart != null){
-            request.setAttribute("email", sessionShoppingCart.size());
+            
         }
         else{
             sessionShoppingCart = new ArrayList<ProductDetails>();

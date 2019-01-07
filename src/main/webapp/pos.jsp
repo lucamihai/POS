@@ -61,7 +61,6 @@
     <body>
         <div id="left">
             <h2>Receipt</h2>
-            <h3>Logged in as ${email}</h3>
             <table class="center">
                 <tr>
                     <th>No.</th>
