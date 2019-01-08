@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -23,8 +24,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "AddProduct", urlPatterns = {"/AddProduct"})
 public class AddProduct extends HttpServlet {
-@Inject
-   ProductBean productBean = new ProductBean();
+    @Inject
+    ProductBean productBean;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -63,7 +64,29 @@ public class AddProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       request.getRequestDispatcher("addProduct.jsp").forward(request, response);
+        
+        HttpSession session = request.getSession(false);
+        if (session == null){
+            
+            request.setAttribute("errorMessage", "Session doesn't exist.");
+            request.getRequestDispatcher("errorPage.jsp").forward(request, response);
+            processRequest(request, response);
+            return;
+        }
+        else{
+            String userType = (String)session.getAttribute("userType");
+            if (userType == null || userType != "admin"){
+                
+                request.setAttribute("errorMessage", "Products can be added only by an admin");
+                request.getRequestDispatcher("errorPage.jsp").forward(request, response);
+                processRequest(request, response);
+                return;
+            }
+            
+            request.getRequestDispatcher("addProduct.jsp").forward(request, response);
+        }
+        
+       
     }
 
     /**

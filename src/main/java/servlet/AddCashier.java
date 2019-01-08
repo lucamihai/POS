@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AddCashier extends HttpServlet {
 
     @Inject
-    CashierBean cashierBean = new CashierBean();
+    CashierBean cashierBean;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -60,8 +61,27 @@ public class AddCashier extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("addCashier.jsp").forward(request, response);
-        //processRequest(request, response);
+        HttpSession session = request.getSession(false);
+        if (session == null){
+            
+            request.setAttribute("errorMessage", "Session doesn't exist.");
+            request.getRequestDispatcher("errorPage.jsp").forward(request, response);
+            processRequest(request, response);
+            return;
+        }
+        else{
+            String userType = (String)session.getAttribute("userType");
+            if (userType == null || userType != "admin"){
+                
+                request.setAttribute("errorMessage", "Cashiers can be added only by an admin");
+                request.getRequestDispatcher("errorPage.jsp").forward(request, response);
+                processRequest(request, response);
+                return;
+            }
+            
+            request.getRequestDispatcher("addCashier.jsp").forward(request, response);
+        }
+        
     }
 
     /**

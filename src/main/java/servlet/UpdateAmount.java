@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -71,11 +72,30 @@ public class UpdateAmount extends HttpServlet {
         
         List<StockDetails> stocks = stockBean.getAllStocks();
         
-        if (stocks != null && !stocks.isEmpty())
-            request.setAttribute("stocks", stocks);
+        HttpSession session = request.getSession(false);
+        if (session == null){
+            
+            request.setAttribute("errorMessage", "Session doesn't exist.");
+            request.getRequestDispatcher("errorPage.jsp").forward(request, response);
+            processRequest(request, response);
+            return;
+        }
+        else{
+            String userType = (String)session.getAttribute("userType");
+            if (userType == null || userType != "admin"){
+                
+                request.setAttribute("errorMessage", "The stock can be managed only by an admin");
+                request.getRequestDispatcher("errorPage.jsp").forward(request, response);
+                processRequest(request, response);
+                return;
+            }
+            
+            if (stocks != null && !stocks.isEmpty())
+                request.setAttribute("stocks", stocks);
         
-        request.setAttribute("title", "Update stock");
-        request.getRequestDispatcher("stockManaging.jsp").forward(request, response);
+            request.setAttribute("title", "Update stock");
+            request.getRequestDispatcher("stockManaging.jsp").forward(request, response);
+        }
     }
 
     /**

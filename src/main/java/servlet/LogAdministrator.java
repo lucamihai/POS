@@ -76,17 +76,20 @@ CashierBean cashierBean;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        Boolean result=cashierBean.VerifyAdmin(email, password);
+        
+        Boolean result = cashierBean.VerifyAdmin(email, password);
         if (result){
+            
             HttpSession oldSession = request.getSession(false);
             if (oldSession != null) {
                 oldSession.invalidate();
             }
 
             HttpSession newSession = request.getSession(true);
-            newSession.setAttribute("userType", "cashier");
+            newSession.setAttribute("userType", "admin");
             newSession.setAttribute("email", email);
             newSession.setMaxInactiveInterval(15 * 60);
             
