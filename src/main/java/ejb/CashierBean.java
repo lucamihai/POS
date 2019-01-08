@@ -68,11 +68,13 @@ public class CashierBean {
     public Boolean VerifyAdmin(String email,String password){
         LOG.info("Verify if the admin exist.");
        
-        try{
-            
-            Query query = entityManager.createQuery("SELECT c FROM Cashier c WHERE c.email = :email and c.password=:password");
+         try{
+            Boolean adminul=true;
+            Query query = entityManager.createQuery("SELECT c FROM Cashier c WHERE c.email = :email and c.password=:password and c.admin=:adminul");
             query.setParameter("email", email);
             query.setParameter("password", password);
+             query.setParameter("adminul", adminul);
+            
             List<Cashier> cashiers = (List<Cashier>)query.getResultList();
          
             if (cashiers.isEmpty()){
@@ -114,7 +116,7 @@ public class CashierBean {
         cashier.setEmail(email);
         cashier.setPassword(password);
         cashier.setAdmin(admin);
-        
+        cashier.setAdmin(admin);
         
         entityManager.persist(cashier);
         
