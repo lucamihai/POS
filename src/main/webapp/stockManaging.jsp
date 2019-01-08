@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Stock managing</title>
         <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
         <style>
             *{
@@ -23,11 +23,16 @@
         </style>
     </head>
     <body>
-        <h1>Update Amount </h1>
+        <h1>Stock managing</h1>
         
         <div style="text-align: center">
             ${errorMessage}
         </div>
+        
+        <h3>
+            <a href="Test">Go back</a>
+        </h3>
+        
         <br>
         <table align="center">
             <tr>

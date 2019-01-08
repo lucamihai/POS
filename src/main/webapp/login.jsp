@@ -18,7 +18,7 @@
                 <a href="LogCashier">Cashier</a>
             </li>
             <li>
-                <a href="LogAdministrator">Administrator (Work in progress)</a>
+                <a href="LogAdministrator">Administrator</a>
             </li>
         </ul>
         <h3>

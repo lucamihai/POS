@@ -75,7 +75,7 @@ public class UpdateAmount extends HttpServlet {
             request.setAttribute("stocks", stocks);
         
         request.setAttribute("title", "Update stock");
-        request.getRequestDispatcher("updateAmount.jsp").forward(request, response);
+        request.getRequestDispatcher("stockManaging.jsp").forward(request, response);
     }
 
     /**
@@ -105,7 +105,7 @@ public class UpdateAmount extends HttpServlet {
             request.setAttribute("stocks", stocks);
         
         request.setAttribute("title", "Update stock");
-        request.getRequestDispatcher("updateAmount.jsp").forward(request, response);
+        request.getRequestDispatcher("stockManaging.jsp").forward(request, response);
     }
 
     /**
