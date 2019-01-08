@@ -29,7 +29,7 @@ public class Cashier implements Serializable {
     String lastname;
     String email;
     String password;
-     Boolean admin;
+    Boolean admin;
 
     public Boolean getAdmin() {
         return admin;

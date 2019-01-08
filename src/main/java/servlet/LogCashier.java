@@ -88,12 +88,14 @@ public class LogCashier extends HttpServlet {
             }
 
             HttpSession newSession = request.getSession(true);
+            newSession.setAttribute("userType", "cashier");
             newSession.setAttribute("email", email);
-            newSession.setMaxInactiveInterval(15*60);
+            newSession.setMaxInactiveInterval(15 * 60);
 
             request.getRequestDispatcher("test.jsp").forward(request, response);
         }
         else {
+            request.setAttribute("errorMessage", "Email / password combination doesn't exist");
             request.getRequestDispatcher("logCashier.jsp").forward(request, response);
         }
         

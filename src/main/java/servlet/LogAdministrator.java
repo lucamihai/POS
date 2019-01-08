@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -78,10 +79,25 @@ CashierBean cashierBean;
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         Boolean result=cashierBean.VerifyAdmin(email, password);
-        if (result)
+        if (result){
+            HttpSession oldSession = request.getSession(false);
+            if (oldSession != null) {
+                oldSession.invalidate();
+            }
+
+            HttpSession newSession = request.getSession(true);
+            newSession.setAttribute("userType", "cashier");
+            newSession.setAttribute("email", email);
+            newSession.setMaxInactiveInterval(15 * 60);
+            
             request.getRequestDispatcher("test.jsp").forward(request, response);
-        else 
+        }
+            
+        else {
+            request.setAttribute("errorMessage", "Email / password combination doesn't exist");
             request.getRequestDispatcher("logAdministrator.jsp").forward(request, response);
+        }
+            
     }
 
     /**

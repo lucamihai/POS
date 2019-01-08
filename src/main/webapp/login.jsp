@@ -21,6 +21,9 @@
                 <a href="LogAdministrator">Administrator (Work in progress)</a>
             </li>
         </ul>
+        <h3>
+            <a href="Test">Go back</a>
+        </h3>
     </body>
 </html>
 

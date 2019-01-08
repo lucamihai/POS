@@ -11,6 +11,12 @@ pageEncoding="ISO-8859-1"%>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Login</title>
+    <style>
+        .errorMessage{
+            text-align: center;
+            color: red;
+        }
+    </style>
 </head>
 <body>
     <div style="text-align:center"><h1>Login</h1> </div>
@@ -31,5 +37,11 @@ pageEncoding="ISO-8859-1"%>
             </tr>
         </table>
     </form>
+    <div class="errorMessage">
+        ${errorMessage}
+    </div>
+    <h3>
+        <a href="Login">Go back</a>
+    </h3>
 </body>
 </html>
