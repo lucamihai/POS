@@ -10,7 +10,72 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Register a cashier</title>
-        <script>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+        <!-- Bootstrap --> 
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+       
+        <style>
+            .errorMessage{
+                color: red;
+            }
+             body {
+            background-color:#eee;
+            }
+            .root {
+               width:100%;
+               margin: 50px 0;
+            }
+            .title{
+                text-align:center;
+                font-family: 'Montserrat', sans-serif;
+            }
+            .main-form {
+                background-color:#fff;
+                margin: 40px auto;
+                padding:20px;
+                width:350px;
+            }
+            .title {
+                color:#000;
+            }
+            .nav-link {
+                text-align:center;
+            }
+        </style>
+    </head>
+    <body>
+       <div class="root">
+            <h1 class="title">Register - Cashier</h1>
+            <div class="errorMessage">${error}</div>
+            <div class="main-form">
+                <form method="post" onsubmit="return ValidateInputs();" action="${pageContext.request.contextPath}/AddCashier" id="signup">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">First Name</label>
+                        <input type="text" name="firstName" class="form-control" id="firstName" placeholder="First Name">
+                         <div id="errorFirstName" class="errorMessage"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Last Name</label>
+                        <input type="text" name="firstName" class="form-control" id="lsatName" placeholder="Last Name">
+                        <div id="errorLasttName" class="errorMessage"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email</label>
+                        <input type="email" name="email" class="form-control" id="email" placeholder="Email">
+                        <div id="errorEmail" class="errorMessage"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Password</label>
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                        <div id="errorPassword" class="errorMessage"></div>
+                    </div>
+                    <input type="submit" value="Register" class="btn btn-primary">
+                </form>
+            </div>
+            <a href="./LogCashier" class="nav-link">Allready have an account ?</a>
+       </div>
+        
+         <script>
             function ValidateInputs(){
                 
                 var signupForm = document.getElementById("signup");
@@ -102,49 +167,6 @@
 
                 return isOk;
             }
-        </script>
-        
-        <style>
-            .errorMessage{
-                color: red;
-            }
-        </style>
-    </head>
-    <body>
-        <h1>Add a cashier</h1>
-        <div class="errorMessage">${error}</div>
-        <form method="post" onsubmit="return ValidateInputs();" action="${pageContext.request.contextPath}/AddCashier" id="signup">
-            <label for="firstName">First name</label>
-            <br>
-            <input type="text" name="firstName" id="firstName">
-            <div id="errorFirstName" class="errorMessage"></div>
-            <br>
-            
-            <label for="lsatName">Last name</label>
-            <br>
-            <input type="text" name="lastName" id="lsatName">
-            <div id="errorLastName" class="errorMessage"></div>
-            <br>
-            
-            <label for="email">Email</label>
-            <br>
-            <input type="text" name="email" id="email">
-            <div id="errorEmail" class="errorMessage"></div>
-            <br>
-            
-            <label for="password">Password</label>
-            <br>
-            <input type="password" name="password" id="password">
-            <div id="errorPassword" class="errorMessage"></div>
-            <br>
-            
-            <input type="submit" value="Register">
-        </form>
-            
-        <a href="Test">Go back</a>
+        </script> 
     </body>
-    
-    
-    
-    
 </html>

@@ -91,7 +91,7 @@ public class LogCashier extends HttpServlet {
             newSession.setAttribute("email", email);
             newSession.setMaxInactiveInterval(15*60);
 
-            request.getRequestDispatcher("test.jsp").forward(request, response);
+            request.getRequestDispatcher("pos.jsp").forward(request, response);
         }
         else {
             request.getRequestDispatcher("logCashier.jsp").forward(request, response);
